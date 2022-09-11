@@ -15,28 +15,32 @@ with open('README.md', 'r') as readme:
     readme_text = readme.read()
     readme_text = readme_text.split('## Contributing')[0]
 
-with open('COPYRIGHT', 'r') as copyright:
-    copyright_text = copyright.read()
+if os.path.isfile('COPYRIGHT'):
+    add_copyright_mentions = True
 
+    with open('COPYRIGHT', 'r') as copyright:
+        copyright_text = copyright.read()
 
-orig_source_file_texts = {}
+    orig_source_file_texts = {}
 
-# prepend copyright mentions to each source file
-for subdir, dirs, files in os.walk('pixels2svg'):
-    for file in files:
-        if not file.endswith('.py'):
-            continue
-        file_path = os.path.join(subdir, file)
+    # prepend copyright mentions to each source file
+    for subdir, dirs, files in os.walk('pixels2svg'):
+        for file in files:
+            if not file.endswith('.py'):
+                continue
+            file_path = os.path.join(subdir, file)
 
-        with open(file_path, 'r') as source_file:
-            source_text = source_file.read()
-            orig_source_file_texts[file_path] = source_text
+            with open(file_path, 'r') as source_file:
+                source_text = source_file.read()
+                orig_source_file_texts[file_path] = source_text
 
-        with open(file_path, 'w') as source_file:
-            source_file.write('"""\n')
-            source_file.write(copyright_text)
-            source_file.write('\n"""\n\n')
-            source_file.write(source_text)
+            with open(file_path, 'w') as source_file:
+                source_file.write('"""\n')
+                source_file.write(copyright_text)
+                source_file.write('\n"""\n\n')
+                source_file.write(source_text)
+else:
+    add_copyright_mentions = False
 
 try:
     setup(
@@ -60,11 +64,12 @@ try:
     )
 
 finally:
-    # reset source files texts to leave a clean git history
-    for subdir, dirs, files in os.walk('pixels2svg'):
-        for file in files:
-            if not file.endswith('.py'):
-                continue
-            file_path = os.path.join(subdir, file)
-            with open(file_path, 'w') as source_file:
-                source_file.write(orig_source_file_texts[file_path])
+    if add_copyright_mentions:
+        # reset source files texts to leave a clean git history
+        for subdir, dirs, files in os.walk('pixels2svg'):
+            for file in files:
+                if not file.endswith('.py'):
+                    continue
+                file_path = os.path.join(subdir, file)
+                with open(file_path, 'w') as source_file:
+                    source_file.write(orig_source_file_texts[file_path])
