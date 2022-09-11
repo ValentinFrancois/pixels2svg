@@ -30,7 +30,9 @@ class TestMain(unittest.TestCase):
     def test_convert_example_images(self):
         for image_path in (SWORD_PNG_PATH, BRAIN_OVERLAY_PNG_PATH):
             output_svg_path = image_path.replace('.png', '_converted.svg')
-            pixel2svg(image_path, output_path=output_svg_path)
+            drawing = pixel2svg(image_path)
+            drawing['id'] = os.path.basename(image_path).replace('.png', '')
+            drawing.save_to_path(output_svg_path)
 
     def test_options(self):
 
