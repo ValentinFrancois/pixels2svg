@@ -20,9 +20,10 @@ equivalent SVG representation, each path of the SVG being a polygon made of
 adjacent pixels of same color merged together.
 
 It is inspired of [Florian Berger](https://github.com/florian-berger)'s 
-[pixels2svg](https://florian-berger.de/en/software/pixels2svg) package, which 
-is pretty old (python2) and doesn't merge adjacent pixels of same color, making the SVG pretty tedious to edit in 
-vector graphics softwares.
+[pixel2svg](https://florian-berger.de/en/software/pixel2svg) package 
+(GitHub fork available [here](https://github.com/cyChop/pixel2svg-fork)), 
+which is pretty old (python2) and doesn't merge adjacent pixels of same color, 
+making the SVG pretty tedious to edit in vector graphics softwares.
 
 
 ### Example 1 - pixel art
