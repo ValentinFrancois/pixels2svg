@@ -60,7 +60,8 @@ try:
         ],
         long_description=readme_text,
         long_description_content_type='text/markdown',
-        platforms=['any']
+        platforms=['any'],
+        python_requires='>=3.7.0',
     )
 
 finally:

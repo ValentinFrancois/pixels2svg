@@ -14,13 +14,13 @@ if __name__ == '__main__':
     group_1 = Group()
     group_2 = Group()
     for element in overlay_img.elements:
-        # by default, pixels2svg groups shapes of same color inside <g> elements
+        # by default pixels2svg groups shapes of same color inside <g> elements
         if element.elementname == 'g':
             for shape in element.elements:
                 shape['fill-opacity'] = 0
                 shape['fill'] = 'none'
-                shape['stroke'] = '#ff00ff'
-                shape['stroke-width'] = 0.3
+                shape['stroke'] = '#0000ff'
+                shape['stroke-width'] = 0.4
                 group_1.add(shape)
                 shape_2 = shape.copy()
                 shape_2['stroke'] = 'white'

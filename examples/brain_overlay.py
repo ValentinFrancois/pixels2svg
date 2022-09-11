@@ -33,12 +33,12 @@ if __name__ == '__main__':
     # add some custom style to the output SVG shapes
     customized_shapes = []
     for element in overlay_img.elements:
-        # by default, pixels2svg groups shapes of same color inside <g> elements
+        # by default pixels2svg groups shapes of same color inside <g> elements
         if element.elementname == 'g':
             for shape in element.elements:
                 shape['fill-opacity'] = 0.2
                 shape['stroke'] = shape['fill']
-                shape['stroke-width'] = 1.25
+                shape['stroke-width'] = 3
                 customized_shapes.append(shape)
 
     # we'll use clip masks to make sure contours are only drawn on the inside

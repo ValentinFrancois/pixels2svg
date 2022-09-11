@@ -58,8 +58,8 @@ class TestMain(unittest.TestCase):
                 with NamedTemporaryFile() as output_svg, \
                         NamedTemporaryFile() as output_png:
                     pixels2svg(image_path,
-                              output_path=output_svg.name,
-                              **option_combination)
+                               output_path=output_svg.name,
+                               **option_combination)
 
                     # test that rasterizing the SVG gives the same PNG as
                     # the original PNG
