@@ -26,23 +26,22 @@ adjacent pixels of same color, making the SVG pretty tedious to edit in
 vector graphics softwares.
 
 
-Original PNG overlay
-Converted SVG overlay
-Blended SVG + scan
+### Example 1 - pixel art
+| File                                                                                                                                                     | Preview                                                                                                                             |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| Original PNG image <br/>(32×32)                                                                                                                          | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/sword.png"  width="32" height="32"/>             | 
+| Original PNG image <br/>(browser enlarged)                                                                                                               | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/sword.png"  width="256" height="256"/>           |
+| Converted SVG image                                                                                                                                      | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/sword_converted.svg"  width="256" height="256"/> | 
+| Converted SVG image - contours <br/>(see [examples/sword_outline.py](https://github.com/ValentinFrancois/pixel2svg/blob/main/examples/sword_outline.py)) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/sword_outline.svg" width="256" height="256"/>    |
 
-| Example 1 - pixel art                                                                                                                                    | Preview                                                                                                                             | Example 2 - brain scan overlay | Example 2 - brain scan overlay                                                                                                        |
-|----------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|--------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| Original PNG image <br/>(32×32)                                                                                                                          | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/sword.png"  width="32" height="32"/>             | Original scan image            | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/brain.png" width="512" height="512"/>              |
-| Original PNG image <br/>(browser enlarged)                                                                                                               | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/sword.png"  width="256" height="256"/>           | Original PNG overlay           | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/overlay.png" width="512" height="512"/>            |
-| Converted SVG image                                                                                                                                      | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/sword_converted.svg"  width="256" height="256"/> | Converted SVG overlay          | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/overlay_converted.svg" width="512" height="512"/>  |
-| Converted SVG image - contours <br/>(see [examples/sword_outline.py](https://github.com/ValentinFrancois/pixel2svg/blob/main/examples/sword_outline.py)) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/sword_outline.svg" width="256" height="256"/>    | Blended SVG + scan             | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/brain_overlay.svg" width="512" height="512"/>      | 
+### Example 2 - brain scan + segmentation overlay
+| File                                                                                                                                                      | Preview                                                                                                                               |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| Scan image                                                                                                                                                | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/brain.png" width="512" height="512"/>              |
+| Segmentation PNG overlay                                                                                                                                  | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/overlay.png" width="512" height="512"/>            |
+| Converted SVG segmentation overlay                                                                                                                        | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/overlay_converted.svg" width="512" height="512"/>  |
+| Blended segmentation SVG + scan <br/>(see [examples/sword_outline.py](https://github.com/ValentinFrancois/pixel2svg/blob/main/examples/brain_overlay.py)) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/brain_overlay.svg" width="512" height="512"/>      | 
 
-<?xml version="1.0" encoding="utf-8" ?>
-<svg>
-<use href="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/sword_converted.svg" x="10" fill="blue"/>
-</svg>
-
----
 
 ## Requirements
 - Python >= __3.0__
