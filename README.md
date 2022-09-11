@@ -49,7 +49,7 @@ making the SVG pretty tedious to edit in vector graphics softwares.
 
 
 ## Requirements
-- Python >= __3.0__
+- Python >= __3.7__
 
 ---
 

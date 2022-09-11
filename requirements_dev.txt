@@ -1,6 +1,6 @@
 isort
-nose
-bandit
 flake8
-safety
+nose
+coverage
+pytest
 CairoSVG
