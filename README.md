@@ -8,7 +8,7 @@ for instance [potrace](http://potrace.sourceforge.net) which is the engine
 used by [Inkscape](https://inkscape.org) and also has available python 
 bindings ([pypotrace](https://pypi.org/project/pypotrace/)).
 
-But sometimes, what you want is the exact bitmap data, but as a group of 
+But sometimes, what you want is the exact bitmap data, but as a set of 
 SVG shapes, that you could for instance:
 - enlarge for big prints
 - use as input paths for a wood laser cutter
@@ -24,6 +24,23 @@ It is inspired of [Florian Berger](https://github.com/florian-berger)'s
 is pretty old (python2), isn't available on `pypi` and doesn't merge 
 adjacent pixels of same color, making the SVG pretty tedious to edit in 
 vector graphics softwares.
+
+
+Original PNG overlay
+Converted SVG overlay
+Blended SVG + scan
+
+| Example 1 - pixel art                                                                                                                                    | Preview                                                                                                                             | Example 2 - brain scan overlay | Example 2 - brain scan overlay                                                                                                        |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|--------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| Original PNG image <br/>(32×32)                                                                                                                          | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/sword.png"  width="32" height="32"/>             | Original scan image            | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/brain.png" width="512" height="512"/>              |
+| Original PNG image <br/>(browser enlarged)                                                                                                               | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/sword.png"  width="256" height="256"/>           | Original PNG overlay           | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/overlay.png" width="512" height="512"/>            |
+| Converted SVG image                                                                                                                                      | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/sword_converted.svg"  width="256" height="256"/> | Converted SVG overlay          | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/overlay_converted.svg" width="512" height="512"/>  |
+| Converted SVG image - contours <br/>(see [examples/sword_outline.py](https://github.com/ValentinFrancois/pixel2svg/blob/main/examples/sword_outline.py)) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/sword_outline.svg" width="256" height="256"/>    | Blended SVG + scan             | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/brain_overlay.svg" width="512" height="512"/>      | 
+
+<?xml version="1.0" encoding="utf-8" ?>
+<svg>
+<use href="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/sword_converted.svg" x="10" fill="blue"/>
+</svg>
 
 ---
 
@@ -84,31 +101,30 @@ integrate it best within your codebase:
 
 ### Parameters
 
- **`input_path`** : `str`
+- **`input_path`** : `str`
+  <br/>Path of the input bitmap image
 
-Path of the input bitmap image
 
-**`output_path`** : `Optional[str]`
+- **`output_path`** : `Optional[str]`
+  <br/>Path of the output SVG image (optional). If passed, the function will 
+return None. If not passed, the function will return the SVG data as a `str` or a `Drawing` depending on the `as_string` parameter.
 
-Path of the output SVG image (optional). If passed, the function will return None. If not passed, the function will return the SVG data as a `str` or a `Drawing` depending on the `as_string` parameter.
 
-**`group_by_color`** : `bool`
+- **`group_by_color`** : `bool`
+  <br/>If True (default), group same-color shapes under SVG elements.
 
-If True (default), group same-color shapes under SVG elements.
 
-**`as_string`** : `bool`
+- **`as_string`** : `bool`
+  <br/>If True and no `output_path` is passed, return a `str` representing the SVG data.
 
-If True and no `output_path` is passed, return a `str` representing the SVG data.
 
-**`pretty`** : `bool`
-
-If True (default), output SVG code is pretty-printed.
+- **`pretty`** : `bool`
+  <br/>If True (default), output SVG code is pretty-printed.
 
 ### Returns
 
-`Optional[Union[svg.Drawing, str]]`
-
-Depends on the `output_path` and `as_string` parameters
+- `Optional[Union[svg.Drawing, str]]`
+  <br/>Depends on the `output_path` and `as_string` parameters
 
 </div>
 
@@ -122,7 +138,8 @@ with the additional useful methods:
 - `def to_string(self, pretty: bool = False) ‑> str`
 
 This gives you access to the `svgwrite` API to modify the output programmatically.
-See advanced examples in `./examples`.
+
+See advanced examples in [examples](https://github.com/ValentinFrancois/pixel2svg/tree/main/examples).
 
 ---
 
