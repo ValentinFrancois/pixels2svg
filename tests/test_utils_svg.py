@@ -1,6 +1,6 @@
 import unittest
 
-from pixel2svg.utils import svg
+from pixels2svg.utils import svg
 
 
 class TestUtilsSVG(unittest.TestCase):

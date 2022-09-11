@@ -5,7 +5,7 @@ from numpy.testing import assert_array_equal
 
 from tests.base import FIXTURES_DIR, SWORD_PNG_PATH
 
-from pixel2svg.utils import pixel
+from pixels2svg.utils import pixel
 
 IMAGE_FORMATS_DIR = os.path.join(FIXTURES_DIR, 'formats')
 

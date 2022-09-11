@@ -7,7 +7,7 @@ from svgwrite.masking import ClipPath
 
 from examples.base import BRAIN_OVERLAY_PNG_PATH, BRAIN_PNG_PATH
 
-from pixel2svg import Drawing, pixel2svg
+from pixels2svg import Drawing, pixels2svg
 
 
 def file_to_base64(filepath):
@@ -25,7 +25,7 @@ def file_to_base64_html(filepath):
 
 
 if __name__ == '__main__':
-    overlay_img = pixel2svg(BRAIN_OVERLAY_PNG_PATH)
+    overlay_img = pixels2svg(BRAIN_OVERLAY_PNG_PATH)
     final_img = Drawing(overlay_img.width, overlay_img.height)
     final_img.add(Image(href=file_to_base64_html(BRAIN_PNG_PATH),
                         size=("100%", "100%")))
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     # add some custom style to the output SVG shapes
     customized_shapes = []
     for element in overlay_img.elements:
-        # by default, pixel2svg groups shapes of same color inside <g> elements
+        # by default, pixels2svg groups shapes of same color inside <g> elements
         if element.elementname == 'g':
             for shape in element.elements:
                 shape['fill-opacity'] = 0.2

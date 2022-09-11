@@ -9,8 +9,8 @@ from PIL.Image import NEAREST, fromarray
 
 from tests.base import BRAIN_OVERLAY_PNG_PATH, FIXTURES_DIR, SWORD_PNG_PATH
 
-from pixel2svg.main import pixel2svg
-from pixel2svg.utils.pixel import read_image
+from pixels2svg.main import pixels2svg
+from pixels2svg.utils.pixel import read_image
 
 EMPTY_PNG_PATH = os.path.join(FIXTURES_DIR, 'empty.png')
 
@@ -30,7 +30,7 @@ class TestMain(unittest.TestCase):
     def test_convert_example_images(self):
         for image_path in (SWORD_PNG_PATH, BRAIN_OVERLAY_PNG_PATH):
             output_svg_path = image_path.replace('.png', '_converted.svg')
-            drawing = pixel2svg(image_path)
+            drawing = pixels2svg(image_path)
             drawing['id'] = os.path.basename(image_path).replace('.png', '')
             drawing.save_to_path(output_svg_path)
 
@@ -57,7 +57,7 @@ class TestMain(unittest.TestCase):
             for option_combination in option_combinations:
                 with NamedTemporaryFile() as output_svg, \
                         NamedTemporaryFile() as output_png:
-                    pixel2svg(image_path,
+                    pixels2svg(image_path,
                               output_path=output_svg.name,
                               **option_combination)
 

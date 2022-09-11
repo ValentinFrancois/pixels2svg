@@ -7,8 +7,8 @@ from PIL import Image, ImageDraw
 
 from tests.base import FIXTURES_DIR
 
-from pixel2svg.utils import geometry
-from pixel2svg.utils.pixel import read_image
+from pixels2svg.utils import geometry
+from pixels2svg.utils.pixel import read_image
 
 
 class TestUtilsGeometry(unittest.TestCase):

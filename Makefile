@@ -1,4 +1,4 @@
-PROJECT = pixel2svg
+PROJECT = pixels2svg
 
 
 isort:

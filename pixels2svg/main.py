@@ -5,8 +5,8 @@ import cc3d
 import numpy as np
 from svgwrite.container import Group
 
-from pixel2svg.utils import geometry, pixel, svg
-from pixel2svg.utils.geometry import Contours
+from pixels2svg.utils import geometry, pixel, svg
+from pixels2svg.utils.geometry import Contours
 
 T = TypeVar('T')
 
@@ -113,7 +113,7 @@ def trace_pixel_polygons_as_svg(rgba_array: np.ndarray,
     return svg_img
 
 
-def pixel2svg(input_path: str,
+def pixels2svg(input_path: str,
               output_path: Optional[str] = None,
               group_by_color: bool = True,
               as_string: bool = False,

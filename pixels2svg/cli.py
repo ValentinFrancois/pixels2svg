@@ -1,10 +1,10 @@
 import argparse
 
-from pixel2svg.main import pixel2svg
+from pixels2svg.main import pixels2svg
 
 
 def run_command():
-    parser = argparse.ArgumentParser(description='pixel2svg CLI')
+    parser = argparse.ArgumentParser(description='pixels2svg CLI')
     parser.add_argument('input',
                         metavar='path',
                         type=str,
@@ -27,7 +27,7 @@ def run_command():
 
     args = parser.parse_args()
 
-    output_str = pixel2svg(args.input[0],
+    output_str = pixels2svg(args.input[0],
                            output_path=args.output[0] if args.output else None,
                            group_by_color=not args.no_group_by_color,
                            as_string=not args.output,

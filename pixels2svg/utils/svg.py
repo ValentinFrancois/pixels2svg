@@ -5,8 +5,8 @@ from svgwrite import Drawing as SVGDrawing
 from svgwrite.container import Group
 from svgwrite.path import Path
 
-from pixel2svg.utils.geometry import Polygon
-from pixel2svg.utils.pixel import PixelRGB, PixelRGBA, rgb_color_to_hex_code
+from pixels2svg.utils.geometry import Polygon
+from pixels2svg.utils.pixel import PixelRGB, PixelRGBA, rgb_color_to_hex_code
 
 
 class Drawing(SVGDrawing):

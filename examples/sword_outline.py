@@ -4,17 +4,17 @@ from svgwrite.container import Group
 
 from examples.base import SWORD_PNG_PATH
 
-from pixel2svg import Drawing, pixel2svg
+from pixels2svg import Drawing, pixels2svg
 
 if __name__ == '__main__':
-    overlay_img = pixel2svg(SWORD_PNG_PATH)
+    overlay_img = pixels2svg(SWORD_PNG_PATH)
     final_img = Drawing(overlay_img.width, overlay_img.height)
 
     # add some custom style to the output SVG shapes
     group_1 = Group()
     group_2 = Group()
     for element in overlay_img.elements:
-        # by default, pixel2svg groups shapes of same color inside <g> elements
+        # by default, pixels2svg groups shapes of same color inside <g> elements
         if element.elementname == 'g':
             for shape in element.elements:
                 shape['fill-opacity'] = 0

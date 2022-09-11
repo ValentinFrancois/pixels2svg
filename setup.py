@@ -1,7 +1,7 @@
 import os
 import sys
 
-sys.path[0:0] = ['pixel2svg']
+sys.path[0:0] = ['pixels2svg']
 
 from __version__ import __version__
 
@@ -22,7 +22,7 @@ with open('COPYRIGHT', 'r') as copyright:
 orig_source_file_texts = {}
 
 # prepend copyright mentions to each source file
-for subdir, dirs, files in os.walk('pixel2svg'):
+for subdir, dirs, files in os.walk('pixels2svg'):
     for file in files:
         if not file.endswith('.py'):
             continue
@@ -40,14 +40,14 @@ for subdir, dirs, files in os.walk('pixel2svg'):
 
 try:
     setup(
-        name='pixel2svg',
-        description='pixel2svg : Convert pixels to SVG square-based shapes.',
+        name='pixels2svg',
+        description='pixels2svg : Convert pixels to SVG square-based shapes.',
         license='GNU General Public License v3 or later (GPLv3+)',
         version=__version__,
         author='Valentin François',
         maintainer='Valentin François',
-        url='https://github.com/ValentinFrancois/pixel2svg',
-        packages=['pixel2svg'],
+        url='https://github.com/ValentinFrancois/pixels2svg',
+        packages=['pixels2svg'],
         install_requires=[
            'connected-components-3d',
            'numpy',
@@ -61,7 +61,7 @@ try:
 
 finally:
     # reset source files texts to leave a clean git history
-    for subdir, dirs, files in os.walk('pixel2svg'):
+    for subdir, dirs, files in os.walk('pixels2svg'):
         for file in files:
             if not file.endswith('.py'):
                 continue

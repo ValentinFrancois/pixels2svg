@@ -1,4 +1,4 @@
-# pixel2svg <sub><sup>v0.0.1</sup></sub>
+# pixels2svg <sub><sup>v0.0.1</sup></sub>
 
 ### Convert pixels to SVG square-based shapes.
 
@@ -20,27 +20,26 @@ equivalent SVG representation, each path of the SVG being a polygon made of
 adjacent pixels of same color merged together.
 
 It is inspired of [Florian Berger](https://github.com/florian-berger)'s 
-[pixel2svg](https://florian-berger.de/en/software/pixel2svg) package, which 
-is pretty old (python2), isn't available on `pypi` and doesn't merge 
-adjacent pixels of same color, making the SVG pretty tedious to edit in 
+[pixels2svg](https://florian-berger.de/en/software/pixels2svg) package, which 
+is pretty old (python2) and doesn't merge adjacent pixels of same color, making the SVG pretty tedious to edit in 
 vector graphics softwares.
 
 
 ### Example 1 - pixel art
 | File                                                                                                                                                     | Preview                                                                                                                             |
 |----------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| Original PNG image <br/>(32×32)                                                                                                                          | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/sword.png"  width="32" height="32"/>             | 
-| Original PNG image <br/>(browser enlarged)                                                                                                               | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/sword.png"  width="256" height="256"/>           |
-| Converted SVG image                                                                                                                                      | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/sword_converted.svg"  width="256" height="256"/> | 
-| Converted SVG image - contours <br/>(see [examples/sword_outline.py](https://github.com/ValentinFrancois/pixel2svg/blob/main/examples/sword_outline.py)) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/sword_outline.svg" width="256" height="256"/>    |
+| Original PNG image <br/>(32×32)                                                                                                                          | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/sword.png"  width="32" height="32"/>             | 
+| Original PNG image <br/>(browser enlarged)                                                                                                               | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/sword.png"  width="256" height="256"/>           |
+| Converted SVG image                                                                                                                                      | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/sword_converted.svg"  width="256" height="256"/> | 
+| Converted SVG image - contours <br/>(see [examples/sword_outline.py](https://github.com/ValentinFrancois/pixels2svg/blob/main/examples/sword_outline.py)) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/sword_outline.svg" width="256" height="256"/>    |
 
 ### Example 2 - brain scan + segmentation overlay
 | File                                                                                                                                                      | Preview                                                                                                                               |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| Scan image                                                                                                                                                | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/brain.png" width="512" height="512"/>              |
-| Segmentation PNG overlay                                                                                                                                  | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/overlay.png" width="512" height="512"/>            |
-| Converted SVG segmentation overlay                                                                                                                        | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/overlay_converted.svg" width="512" height="512"/>  |
-| Blended segmentation SVG + scan <br/>(see [examples/sword_outline.py](https://github.com/ValentinFrancois/pixel2svg/blob/main/examples/brain_overlay.py)) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixel2svg/main/images/brain_overlay.svg" width="512" height="512"/>      | 
+| Scan image                                                                                                                                                | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/brain.png" width="256" height="256"/>              |
+| Segmentation PNG overlay                                                                                                                                  | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/overlay.png" width="256" height="256"/>            |
+| Converted SVG segmentation overlay                                                                                                                        | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/overlay_converted.svg" width="512" height="512"/>  |
+| Blended segmentation SVG + scan <br/>(see [examples/sword_outline.py](https://github.com/ValentinFrancois/pixels2svg/blob/main/examples/brain_overlay.py)) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/brain_overlay.svg" width="512" height="512"/>      | 
 
 
 ## Requirements
@@ -57,11 +56,11 @@ vector graphics softwares.
 
 ## Install
 ```
-pip install pixel2svg
+pip install pixels2svg
 ```
 or directly from Github:
-```pixel2svg
-pip install git+git://github.com/ValentinFrancois/pixel2svg#egg=pixel2svg
+```pixels2svg
+pip install git+git://github.com/ValentinFrancois/pixels2svg#egg=pixels2svg
 ```
 
 ---
@@ -69,9 +68,9 @@ pip install git+git://github.com/ValentinFrancois/pixel2svg#egg=pixel2svg
 ## Usage examples
 ### CLI
 ```
-usage: pixel2svg [-h] [--output path] [--no_group_by_color] [--no_pretty] path
+usage: pixels2svg [-h] [--output path] [--no_group_by_color] [--no_pretty] path
 
-pixel2svg CLI
+pixels2svg CLI
 
 positional arguments:
   path                  input path of the bitmap image. If not passed, will print the output in the terminal.
@@ -88,12 +87,12 @@ optional arguments:
 
 #### Simple usage
 ```python
-from pixel2svg import pixel2svg
+from pixels2svg import pixels2svg
 
-pixel2svg('input.png', 'output.svg')
+pixels2svg('input.png', 'output.svg')
 ```
 
-`pixel2svg()` accepts a few optional arguments that should help you 
+`pixels2svg()` accepts a few optional arguments that should help you 
 integrate it best within your codebase:
 
 <div style="background-color: rgba(255, 255, 255, 0.05); padding: 0px 10px 2px 10px;">
@@ -138,7 +137,7 @@ with the additional useful methods:
 
 This gives you access to the `svgwrite` API to modify the output programmatically.
 
-See advanced examples in [examples](https://github.com/ValentinFrancois/pixel2svg/tree/main/examples).
+See advanced examples in [examples](https://github.com/ValentinFrancois/pixels2svg/tree/main/examples).
 
 ---
 
