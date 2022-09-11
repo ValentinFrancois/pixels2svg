@@ -160,9 +160,15 @@ following keywords so that the CI works:
 
 ## Links
 
-A cool SVG path inspector & editor: https://yqnn.github.io/svg-path-editor/ 
 
-Sources of examples images:
 
-- brain tumor scan & overlay: https://www.nature.com/articles/srep16822
-- pixel art sword: https://raventale.itch.io/daily-doodles-pixelart-asset-pack
+- Sources of examples images:
+
+  - brain tumor scan & overlay: https://www.nature.com/articles/srep16822
+  - pixel art sword: https://raventale.itch.io/daily-doodles-pixelart-asset-pack
+
+
+- A cool SVG path inspector & editor: https://yqnn.github.io/svg-path-editor
+
+
+- Some CC0 pixel art: https://opengameart.org/content/good-cc0-art
