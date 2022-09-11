@@ -1,0 +1,6 @@
+isort
+nose
+bandit
+flake8
+safety
+CairoSVG
