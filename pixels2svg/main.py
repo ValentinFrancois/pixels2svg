@@ -114,10 +114,10 @@ def trace_pixel_polygons_as_svg(rgba_array: np.ndarray,
 
 
 def pixels2svg(input_path: str,
-              output_path: Optional[str] = None,
-              group_by_color: bool = True,
-              as_string: bool = False,
-              pretty: bool = True) -> Optional[Union[svg.Drawing, str]]:
+               output_path: Optional[str] = None,
+               group_by_color: bool = True,
+               as_string: bool = False,
+               pretty: bool = True) -> Optional[Union[svg.Drawing, str]]:
     """
     Parameters
     ----------

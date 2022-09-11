@@ -33,7 +33,7 @@ if __name__ == '__main__':
     # add some custom style to the output SVG shapes
     customized_shapes = []
     for element in overlay_img.elements:
-        # by default, pixels2svg groups shapes of same color inside <g> elements
+        # by default pixels2svg groups shapes of same color inside <g> elements
         if element.elementname == 'g':
             for shape in element.elements:
                 shape['fill-opacity'] = 0.2

@@ -80,7 +80,3 @@ def rgb_color_to_hex_code(color: PixelRGB) -> str:
 
     color_code = ''.join(['{:02x}'.format(color[i]) for i in range(3)])
     return f'#{color_code}'.lower()
-
-
-
-

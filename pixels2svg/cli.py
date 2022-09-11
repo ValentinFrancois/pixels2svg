@@ -27,10 +27,12 @@ def run_command():
 
     args = parser.parse_args()
 
-    output_str = pixels2svg(args.input[0],
-                           output_path=args.output[0] if args.output else None,
-                           group_by_color=not args.no_group_by_color,
-                           as_string=not args.output,
-                           pretty=not args.no_pretty)
+    output_str = pixels2svg(
+        args.input[0],
+        output_path=args.output[0] if args.output else None,
+        group_by_color=not args.no_group_by_color,
+        as_string=not args.output,
+        pretty=not args.no_pretty
+    )
     if output_str:
         print(output_str)

@@ -14,7 +14,7 @@ if __name__ == '__main__':
     group_1 = Group()
     group_2 = Group()
     for element in overlay_img.elements:
-        # by default, pixels2svg groups shapes of same color inside <g> elements
+        # by default pixels2svg groups shapes of same color inside <g> elements
         if element.elementname == 'g':
             for shape in element.elements:
                 shape['fill-opacity'] = 0
