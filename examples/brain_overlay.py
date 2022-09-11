@@ -38,7 +38,7 @@ if __name__ == '__main__':
             for shape in element.elements:
                 shape['fill-opacity'] = 0.2
                 shape['stroke'] = shape['fill']
-                shape['stroke-width'] = 1.25
+                shape['stroke-width'] = 3
                 customized_shapes.append(shape)
 
     # we'll use clip masks to make sure contours are only drawn on the inside
