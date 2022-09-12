@@ -51,7 +51,7 @@ try:
         author='Valentin François',
         maintainer='Valentin François',
         url='https://github.com/ValentinFrancois/pixels2svg',
-        packages=['pixels2svg'],
+        packages=['pixels2svg', 'pixels2svg.utils'],
         install_requires=[
            'connected-components-3d',
            'numpy',
