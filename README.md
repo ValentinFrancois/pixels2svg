@@ -45,7 +45,7 @@ making the SVG pretty tedious to edit in vector graphics softwares.
 | Scan image (PNG)                                                                                                                                                                                       | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/brain.png" width="256" height="256"/>             |
 | Segmentation overlay (PNG)                                                                                                                                                                             | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/overlay.png" width="256" height="256"/>           |
 | Converted SVG segmentation overlay                                                                                                                                                                     | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/overlay_converted.svg" width="256" height="256"/> |
-| Converted SVG overlayed on PNG scan <br/>with customized opacity & contour style <br/>(see [examples/sword_outline.py](https://github.com/ValentinFrancois/pixels2svg/blob/main/examples/brain_overlay.py)) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/brain_overlay.svg" width="256" height="256"/>     | 
+| Converted SVG overlayed on PNG scan <br/>with customized opacity & contour style <br/>(see [examples/brain_overlay.py](https://github.com/ValentinFrancois/pixels2svg/blob/main/examples/brain_overlay.py)) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/brain_overlay.svg" width="256" height="256"/>     | 
 
 
 ## Requirements
@@ -103,7 +103,8 @@ integrate it best within your codebase:
 
 <div style="background-color: rgba(255, 255, 255, 0.05); padding: 0px 10px 2px 10px;">
 
-### Parameters
+<span style="text-decoration:underline; font-weight: bold; ">Parameters</span>
+
 
 - **`input_path`** : `str`
   <br/>Path of the input bitmap image
@@ -125,7 +126,7 @@ return None. If not passed, the function will return the SVG data as a `str` or 
 - **`pretty`** : `bool`
   <br/>If True (default), output SVG code is pretty-printed.
 
-### Returns
+<span style="text-decoration:underline; font-weight: bold; ">Returns</span>
 
 - `Optional[Union[svg.Drawing, str]]`
   <br/>Depends on the `output_path` and `as_string` parameters
