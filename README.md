@@ -1,4 +1,4 @@
-# pixels2svg <sub><sup>v0.1.1</sup></sub>
+# pixels2svg <sub><sup>v0.2.0</sup></sub>
 
 ### Convert pixels to SVG square-based shapes.
 
