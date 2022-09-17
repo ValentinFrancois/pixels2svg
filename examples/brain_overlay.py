@@ -36,7 +36,7 @@ def main():
         # by default pixels2svg groups shapes of same color inside <g> elements
         if element.elementname == 'g':
             for shape in element.elements:
-                shape['fill-opacity'] = 0.2
+                shape['fill-opacity'] = 0.1
                 shape['stroke'] = shape['fill']
                 shape['stroke-width'] = 3
                 customized_shapes.append(shape)
