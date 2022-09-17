@@ -42,6 +42,7 @@ def _reduce_colors(rgba_array: np.ndarray, tolerance: int = 0) -> np.ndarray:
         reduced_colors[:, :, i] = channel // reduction_factors[i]
         if i == 3:
             channel_non_zero = (channel > 0).astype(np.float64)
+            channel_non_zero[reduced_colors[:, :, i] == 255] = 0
             reduced_colors[:, :, i] += channel_non_zero
 
     return reduced_colors.astype(np.uint8)
@@ -92,7 +93,7 @@ def apply_color_tolerance(rgba_array: np.ndarray,
 
 
 def remove_background(rgba_array: np.ndarray,
-                      background_tolerance: int = 1,
+                      background_tolerance: float = 1.0,
                       maximal_non_bg_artifact_size: float = 2.0) -> np.ndarray:
     """Background removal technique:
     1) Create a first base mask using contour detection
