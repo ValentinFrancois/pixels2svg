@@ -24,7 +24,7 @@ def file_to_base64_html(filepath):
     return f'data:{mime_type};base64,{base64_data}'
 
 
-if __name__ == '__main__':
+def main():
     overlay_img = pixels2svg(BRAIN_OVERLAY_PNG_PATH)
     final_img = Drawing(overlay_img.width, overlay_img.height)
     final_img.add(Image(href=file_to_base64_html(BRAIN_PNG_PATH),
@@ -36,7 +36,7 @@ if __name__ == '__main__':
         # by default pixels2svg groups shapes of same color inside <g> elements
         if element.elementname == 'g':
             for shape in element.elements:
-                shape['fill-opacity'] = 0.2
+                shape['fill-opacity'] = 0.1
                 shape['stroke'] = shape['fill']
                 shape['stroke-width'] = 3
                 customized_shapes.append(shape)
@@ -62,3 +62,7 @@ if __name__ == '__main__':
 
     final_img.save_to_path(os.path.join(os.path.dirname(BRAIN_PNG_PATH),
                                         'brain_overlay.svg'))
+
+
+if __name__ == '__main__':
+    main()

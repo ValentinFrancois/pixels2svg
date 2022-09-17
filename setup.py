@@ -54,7 +54,7 @@ try:
         packages=['pixels2svg', 'pixels2svg.utils'],
         install_requires=[
            'connected-components-3d',
-           'numpy',
+           'scipy',
            'Pillow',
            'svgwrite'
         ],

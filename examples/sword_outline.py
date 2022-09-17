@@ -6,7 +6,8 @@ from examples.base import SWORD_PNG_PATH
 
 from pixels2svg import Drawing, pixels2svg
 
-if __name__ == '__main__':
+
+def main():
     overlay_img = pixels2svg(SWORD_PNG_PATH)
     final_img = Drawing(overlay_img.width, overlay_img.height)
 
@@ -31,3 +32,7 @@ if __name__ == '__main__':
     final_img.add(group_2)
     final_img.save_to_path(os.path.join(os.path.dirname(SWORD_PNG_PATH),
                                         'sword_outline.svg'))
+
+
+if __name__ == '__main__':
+    main()

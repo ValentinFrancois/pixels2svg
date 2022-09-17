@@ -2,6 +2,7 @@
 
 ### Convert pixels to SVG square-based shapes.
 
+<img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/pixels2svg.png" width="512" />
 
 There are a few open source tools around that do bitmap -> vector _tracing_,
 for instance [potrace](http://potrace.sourceforge.net) which is the engine 
@@ -31,23 +32,6 @@ which is pretty old (python2) and doesn't merge adjacent pixels of same color,
 making the SVG pretty tedious to edit in vector graphics softwares.
 
 
-### Example 1 - pixel art
-| File                                                                                                                                                                           | Preview                                                                                                                              |
-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| Original PNG image <br/>(32×32)                                                                                                                                                | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/sword.png"  width="32" height="32"/>             | 
-| Original PNG image <br/>(browser enlarged)                                                                                                                                     | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/sword.png"  width="256" height="256"/>           |
-| Output SVG image                                                                                                                                                               | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/sword_converted.svg"  width="256" height="256"/> | 
-| Output SVG image with <br/>customized contour style <br/>(see [examples/sword_outline.py](https://github.com/ValentinFrancois/pixels2svg/blob/main/examples/sword_outline.py)) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/sword_outline.svg" width="256" height="256"/>    |
-
-### Example 2 - brain scan + segmentation overlay
-| File                                                                                                                                                                                                   | Preview                                                                                                                               |
-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| Scan image (PNG)                                                                                                                                                                                       | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/brain.png" width="256" height="256"/>             |
-| Segmentation overlay (PNG)                                                                                                                                                                             | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/overlay.png" width="256" height="256"/>           |
-| Converted SVG segmentation overlay                                                                                                                                                                     | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/overlay_converted.svg" width="256" height="256"/> |
-| Converted SVG overlayed on PNG scan <br/>with customized opacity & contour style <br/>(see [examples/brain_overlay.py](https://github.com/ValentinFrancois/pixels2svg/blob/main/examples/brain_overlay.py)) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/brain_overlay.svg" width="256" height="256"/>     | 
-
-
 ## Requirements
 - Python >= __3.7__
 
@@ -56,6 +40,7 @@ making the SVG pretty tedious to edit in vector graphics softwares.
 ## Dependencies
 - [svgwrite](https://github.com/mozman/svgwrite)
 - [PIL](https://github.com/python-pillow/Pillow)
+- [scipy](https://github.com/scipy/scipy)
 - [cc3d](https://github.com/seung-lab/connected-components-3d)
 
 ---
@@ -71,22 +56,43 @@ pip install git+git://github.com/ValentinFrancois/pixels2svg#egg=pixels2svg
 
 ---
 
-## Usage examples
+## Usage
 ### CLI
 ```
-usage: python3 -m pixels2svg [-h] [--output path] [--no_group_by_color] [--no_pretty] path
+usage: __main__.py [-h] [--output <path>] [--color_tolerance <int>] [--remove_background]
+                   [--background_tolerance <float>] [--maximal_non_bg_artifact_size <float>]
+                   [--no_group_by_color] [--no_pretty]
+                   <path>
 
 pixels2svg CLI
 
 positional arguments:
-  path                  input path of the bitmap image. If not passed, will print the output in the terminal.
+  <path>                Input path of the bitmap image.
 
 optional arguments:
   -h, --help            show this help message and exit
-  --output path, -o path
-                        output path of the bitmap image
-  --no_group_by_color   do not group shapes of same color together inside <g> tags
-  --no_pretty           do not pretty-write the SVG code
+  --output <path>, -o <path>
+                        Output path of the bitmap image.
+                        If not passed, will print the output in the terminal.
+  --color_tolerance <int>, -c <int>
+                        Color tolerance (1 = the smallest luminosity difference i.e. a difference of 1 on the
+                        Blue channel).
+  --remove_background, -b
+                        If image has a solid background, will try to remove it.
+  --background_tolerance <float>
+                        (Only relevant when `remove_background = True`)
+                        Arbitrary quantity of blur use to remove noise - just fine-tune the value if the
+                        default (1.0) doesn't work well.
+                        0 means no blur will be used.
+  --maximal_non_bg_artifact_size <float>
+                        (Only relevant when `remove_background = True`)
+                        When a blob of pixels is clone enough to the detected image contours and below this
+                        threshold, it won't be considered as background.
+                        Combined with `background_tolerance`, this allows you to control how progressive the
+                        background detection should be with blurred contours.
+                        Size is expressed in % of total image pixels.
+  --no_group_by_color   Do not group shapes of same color together inside <g> tags.
+  --no_pretty           Do not pretty-write the SVG code.
 ```
 
 ### In Python
@@ -111,12 +117,35 @@ integrate it best within your codebase:
 
 
 - **`output_path`** : `Optional[str]`
-  <br/>Path of the output SVG image (optional). If passed, the function will 
-return None. If not passed, the function will return the SVG data as a `str` or a `Drawing` depending on the `as_string` parameter.
+  <br/>Path of the output SVG image (optional). If passed, the function will return None.
+  <br/>If not passed, the function will return the SVG data as a `str` or a `Drawing` depending on the `as_string` parameter.
 
 
 - **`group_by_color`** : `bool`
   <br/>If True (default), group same-color shapes under SVG elements.
+
+
+- **`color_tolerance`**: `int`
+ <br/>Optional tolerance parameter that defines if adjacent pixels of close colors should be merged together in a single SVG shape. 
+ <br/>Tolerance is applied based on luminosity. 1 represents the smallest difference of luminosity, i.e. a difference of 1 in the Blue channel.
+
+
+- **`remove_background`**: `bool`
+ <br/>If True, tries to remove the background before the conversion to SVG (default False). 
+ <br/>Simple technique based on contour detection, probably won't work well with complex images.
+
+
+- **`background_tolerance`**: `float`
+ <br/>(Only relevant when remove_background = True) 
+ <br/>Arbitrary quantity of blur use to remove noise - just fine-tune the value if the default (1.0) doesn't work well.
+ <br/>0 means no blur will be used.
+
+
+- **`maximal_non_bg_artifact_size`**: `float`
+ <br/>(Only relevant when remove_background = True) 
+ <br/>When a blob of pixels is clone enough to the detected image contours, and below this threshold, it won't be considered as background.
+ <br/>Combined with background_tolerance, this allows you to control how progressive the background detection should be with blurred contours.
+ <br/>Size is expressed in % of total image pixels.
 
 
 - **`as_string`** : `bool`
@@ -126,7 +155,9 @@ return None. If not passed, the function will return the SVG data as a `str` or 
 - **`pretty`** : `bool`
   <br/>If True (default), output SVG code is pretty-printed.
 
+
 <span style="text-decoration:underline; font-weight: bold; ">Returns</span>
+
 
 - `Optional[Union[svg.Drawing, str]]`
   <br/>Depends on the `output_path` and `as_string` parameters
@@ -148,6 +179,44 @@ See advanced examples in [examples](https://github.com/ValentinFrancois/pixels2s
 
 ---
 
+## Examples
+
+### Example 1 - vectorize and edit pixel art ([source](https://github.com/ValentinFrancois/pixels2svg/blob/main/examples/sword_outline.py))
+| File                                                 | Preview                                                                                                                              |
+|------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| Original PNG image <br/>(32×32)                      | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/sword.png"  width="32" height="32"/>             | 
+| Original PNG image <br/>(browser enlarged)           | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/sword.png"  width="256" height="256"/>           |
+| Output SVG image                                     | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/sword_converted.svg"  width="256" height="256"/> | 
+| Output SVG image with <br/>customized contour style  | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/sword_outline.svg" width="256" height="256"/>    |
+
+### Example 2 - brain scan + segmentation overlay ([source](https://github.com/ValentinFrancois/pixels2svg/blob/main/examples/brain_overlay.py)
+| File                                                                              | Preview                                                                                                                               |
+|-----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| Scan image (PNG)                                                                  | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/brain.png" width="256" height="256"/>             |
+| Segmentation overlay (PNG)                                                        | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/overlay.png" width="256" height="256"/>           |
+| Converted SVG segmentation overlay                                                | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/overlay_converted.svg" width="256" height="256"/> |
+| Converted SVG overlayed on PNG scan <br/>with customized opacity & contour style  | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/brain_overlay.svg" width="256" height="256"/>     | 
+
+
+### Example 3 - vectorize pixel art and remove background ([source](https://github.com/ValentinFrancois/pixels2svg/blob/main/examples/spaceships.py)
+| File                                                                             | Preview                                                                                                                               |
+|----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| Original PNG image <br/>(256×256)                                                | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/spaceships.png" width="256" height="256"/>             |
+| Output SVG image <br/>(background removed)                                       | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/spaceships.png" width="256" height="256"/>           |
+
+
+### Example 4 - vectorize sprite with gradients and reduce number of colors  ([source](https://github.com/ValentinFrancois/pixels2svg/blob/main/examples/fireball.py)
+| File                                           | Preview                                                                                                                               |
+|------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| Original PNG image <br/>(150×150)              | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/fireball.png" width="256" height="256"/>             |
+| Output SVG image <br/>(color tolerance: **0**) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/fireball_tolerance_0.svg" width="256" height="256"/>           |
+| Output SVG image <br/>(color tolerance: **0**) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/fireball_tolerance_64.svg" width="256" height="256"/>           |
+| Output SVG image <br/>(color tolerance: **0**) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/fireball_tolerance_124.svg" width="256" height="256"/>           |
+| Output SVG image <br/>(color tolerance: **0**) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/fireball_tolerance_256.svg" width="256" height="256"/>           |
+| Output SVG image <br/>(color tolerance: **0**) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/fireball_tolerance_512.svg" width="256" height="256"/>           |
+
+---
+
 ## Contributing
 
 PRs are appreciated, just make sure your PR title starts with one of the
@@ -161,15 +230,15 @@ following keywords so that the CI works:
 
 ## Links
 
-
-
 - Sources of examples images:
 
-  - brain tumor scan & overlay: https://www.nature.com/articles/srep16822
-  - pixel art sword: https://raventale.itch.io/daily-doodles-pixelart-asset-pack
+  - [brain tumor scan & overlay](https://www.nature.com/articles/srep16822)
+  - [sword](https://raventale.itch.io/daily-doodles-pixelart-asset-pack)
+  - [spaceships](https://opengameart.org/content/modular-ships)
+  - [fireball](https://opengameart.org/content/fireball-effect-2)
 
 
-- A cool SVG path inspector & editor: https://yqnn.github.io/svg-path-editor
+- [A cool SVG path inspector & editor](https://yqnn.github.io/svg-path-editor)
 
 
-- Some CC0 pixel art: https://opengameart.org/content/good-cc0-art
+- [ Open Game Art](https://opengameart.org/content/good-cc0-art)
