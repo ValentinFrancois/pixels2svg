@@ -15,12 +15,16 @@ def catchtime() -> float:
 
 
 def main():
-    for tolerance in (0, 64, 124, 256, 512):
+    for tolerance in (0, 64, 128, 256, 512):
+        # first iteration will take a long time because there are many colors
+        dir_path, image_name = path.split(FIREBALL_PNG_PATH)
+        print(f'Converting {image_name} with color tolerance: {tolerance}')
         with catchtime():
             svg_img = pixels2svg(FIREBALL_PNG_PATH,
                                  color_tolerance=tolerance)
-        output_path = path.join(path.dirname(FIREBALL_PNG_PATH),
-                                f'fireball_tolerance_{tolerance}.svg')
+        output_path = path.join(dir_path,
+                                image_name.replace(
+                                    '.png', f'_tolerance_{tolerance}.svg'))
         svg_img.save_to_path(output_path)
 
 
