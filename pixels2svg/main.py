@@ -118,7 +118,7 @@ def pixels2svg(input_path: str,
                group_by_color: bool = True,
                color_tolerance: int = 0,
                remove_background: bool = False,
-               background_tolerance: int = 1,
+               background_tolerance: float = 1.0,
                maximal_non_bg_artifact_size: float = 2.0,
                as_string: bool = False,
                pretty: bool = True,) -> Optional[Union[svg.Drawing, str]]:
@@ -144,10 +144,10 @@ def pixels2svg(input_path: str,
         If True, tries to remove the background before the conversion to SVG
         (default False). Simple technique based on contour detection,
         probably won't work well with complex images.
-    background_tolerance: int
+    background_tolerance: float
         (Only relevant when `remove_background = True`)
-        Arbitrary quantity of blur use to remove noise - just play around
-        with the value if the default (1) doesn't work well. 0 means no blur.
+        Arbitrary quantity of blur use to remove noise - just fine-tune the
+        value if the default (1.0) doesn't work well. 0 means no blur.
     maximal_non_bg_artifact_size: float
         (Only relevant when `remove_background = True`)
         When a blob of pixels is clone enough to the detected image contours,
