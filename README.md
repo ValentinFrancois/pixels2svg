@@ -40,6 +40,7 @@ making the SVG pretty tedious to edit in vector graphics softwares.
 ## Dependencies
 - [svgwrite](https://github.com/mozman/svgwrite)
 - [PIL](https://github.com/python-pillow/Pillow)
+- [scipy](https://github.com/scipy/scipy)
 - [cc3d](https://github.com/seung-lab/connected-components-3d)
 
 ---
