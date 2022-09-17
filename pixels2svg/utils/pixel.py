@@ -5,6 +5,7 @@ from PIL import Image
 
 PixelRGBA = Tuple[int, int, int, int]
 PixelRGB = Tuple[int, int, int]
+TRUE_TRANSPARENT: PixelRGBA = (255, 255, 255, 0)
 
 
 def read_image(image_path: str) -> np.ndarray:
@@ -17,12 +18,13 @@ def read_image(image_path: str) -> np.ndarray:
     rgba_image.close()
     # make sure there is only one transparent BG color if original mode is RGBA
     if mode == 'RGBA':
-        rgba_array[rgba_array[:, :, 3] == 0] = [255, 255, 255, 0]
+        rgba_array[rgba_array[:, :, 3] == 0] = TRUE_TRANSPARENT
     return rgba_array
 
 
-def int_to_bytes(x: int) -> bytes:
-    n_bytes = (x.bit_length() + 7) // 8
+def int_to_bytes(x: int, n_bytes=None) -> bytes:
+    if n_bytes is None:
+        n_bytes = (x.bit_length() + 7) // 8
     if x == 0:
         n_bytes = 1
     return x.to_bytes(n_bytes, 'big')
@@ -37,7 +39,7 @@ def rgba_to_id(rgba_val: PixelRGBA) -> int:
 
 
 def id_to_rgba(label: int) -> PixelRGBA:
-    four_bytes = int_to_bytes(label)
+    four_bytes = int_to_bytes(label, n_bytes=4)
     return tuple(four_bytes)
 
 

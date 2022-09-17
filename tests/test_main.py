@@ -7,12 +7,10 @@ from cairosvg import svg2png
 from numpy.testing import assert_array_equal
 from PIL.Image import NEAREST, fromarray
 
-from tests.base import BRAIN_OVERLAY_PNG_PATH, FIXTURES_DIR, SWORD_PNG_PATH
+from tests.base import BRAIN_OVERLAY_PNG_PATH, EMPTY_PNG_PATH, SWORD_PNG_PATH
 
 from pixels2svg.main import pixels2svg
 from pixels2svg.utils.pixel import read_image
-
-EMPTY_PNG_PATH = os.path.join(FIXTURES_DIR, 'empty.png')
 
 
 class TestMain(unittest.TestCase):

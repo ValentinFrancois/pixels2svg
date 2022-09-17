@@ -5,7 +5,7 @@ import cc3d
 import numpy as np
 from svgwrite.container import Group
 
-from pixels2svg.utils import geometry, pixel, svg
+from pixels2svg.utils import geometry, pixel, preprocessing, svg
 from pixels2svg.utils.geometry import Contours
 
 T = TypeVar('T')
@@ -116,23 +116,48 @@ def trace_pixel_polygons_as_svg(rgba_array: np.ndarray,
 def pixels2svg(input_path: str,
                output_path: Optional[str] = None,
                group_by_color: bool = True,
+               color_tolerance: int = 0,
+               remove_background: bool = False,
+               background_tolerance: int = 1,
+               maximal_non_bg_artifact_size: float = 2.0,
                as_string: bool = False,
-               pretty: bool = True) -> Optional[Union[svg.Drawing, str]]:
+               pretty: bool = True,) -> Optional[Union[svg.Drawing, str]]:
     """
     Parameters
     ----------
-    input_path : str
+    input_path: str
         Path of the input bitmap image
-    output_path : Optional[str]
+    output_path: Optional[str]
         Path of the output SVG image (optional).
         If passed, the function will return None.
         If not passed, the function will return the SVG data as a `str` or a
         `Drawing` depending on the `as_string` parameter.
-    group_by_color : bool
+    group_by_color: bool
         If True (default), group same-color shapes under <g> SVG elements.
+    color_tolerance: int
+        Optional tolerance parameter that defines if adjacent pixels of
+        close colors should be merged together in a single SVG shape.
+        Tolerance is applied based on luminosity.
+        1 represents the smallest difference of luminosity, i.e. a difference
+        of 1 in the Blue channel.
+    remove_background: bool
+        If True, tries to remove the background before the conversion to SVG
+        (default False). Simple technique based on contour detection,
+        probably won't work well with complex images.
+    background_tolerance: int
+        (Only relevant when `remove_background = True`)
+        Arbitrary quantity of blur use to remove noise - just play around
+        with the value if the default (1) doesn't work well. 0 means no blur.
+    maximal_non_bg_artifact_size: float
+        (Only relevant when `remove_background = True`)
+        When a blob of pixels is clone enough to the detected image contours,
+        and below this threshold, it won't be considered as background.
+        Combined with `background_tolerance`, this allows you to control how
+        progressive the background detection should be with blurred contours.
+        Size is expressed in % of total image pixels.
     as_string: bool
         If True and no `output_path` is passed, return a `str` representing
-        the SVG data.
+        the SVG data. (default False)
     pretty: bool
         If True (default), output SVG code is pretty-printed.
 
@@ -143,6 +168,17 @@ def pixels2svg(input_path: str,
     """
 
     img_rgba_array = pixel.read_image(input_path)
+
+    if color_tolerance > 0:
+        img_rgba_array = preprocessing.apply_color_tolerance(
+            img_rgba_array,
+            color_tolerance)
+
+    if remove_background:
+        img_rgba_array = preprocessing.remove_background(
+            img_rgba_array,
+            background_tolerance=background_tolerance,
+            maximal_non_bg_artifact_size=maximal_non_bg_artifact_size)
 
     svg_drawing = trace_pixel_polygons_as_svg(img_rgba_array, group_by_color)
 
