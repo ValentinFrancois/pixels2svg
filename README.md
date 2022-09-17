@@ -189,7 +189,7 @@ See advanced examples in [examples](https://github.com/ValentinFrancois/pixels2s
 | Output SVG image                                     | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/sword_converted.svg"  width="256" height="256"/> | 
 | Output SVG image with <br/>customized contour style  | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/sword_outline.svg" width="256" height="256"/>    |
 
-### Example 2 - brain scan + segmentation overlay ([source](https://github.com/ValentinFrancois/pixels2svg/blob/main/examples/brain_overlay.py)
+### Example 2 - brain scan + segmentation overlay ([source](https://github.com/ValentinFrancois/pixels2svg/blob/main/examples/brain_overlay.py))
 | File                                                                              | Preview                                                                                                                               |
 |-----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
 | Scan image (PNG)                                                                  | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/brain.png" width="256" height="256"/>             |
@@ -198,22 +198,37 @@ See advanced examples in [examples](https://github.com/ValentinFrancois/pixels2s
 | Converted SVG overlayed on PNG scan <br/>with customized opacity & contour style  | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/brain_overlay.svg" width="256" height="256"/>     | 
 
 
-### Example 3 - vectorize pixel art and remove background ([source](https://github.com/ValentinFrancois/pixels2svg/blob/main/examples/spaceships.py)
-| File                                                                             | Preview                                                                                                                               |
-|----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| Original PNG image <br/>(256×256)                                                | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/spaceships.png" width="256" height="256"/>             |
-| Output SVG image <br/>(background removed)                                       | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/spaceships.png" width="256" height="256"/>           |
+### Example 3 - vectorize pixel art and remove background ([source](https://github.com/ValentinFrancois/pixels2svg/blob/main/examples/spaceships.py))
+| File                                        | Preview                                                                                                                         |
+|---------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| Original PNG image <br/>(256×256)           | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/spaceships.png" width="256" height="256"/>  |
+| Output SVG image <br/>(background removed)  | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/spaceships.svg" width="256" height="256"/>  |
 
 
-### Example 4 - vectorize sprite with gradients and reduce number of colors  ([source](https://github.com/ValentinFrancois/pixels2svg/blob/main/examples/fireball.py)
-| File                                           | Preview                                                                                                                               |
-|------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| Original PNG image <br/>(150×150)              | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/fireball.png" width="256" height="256"/>             |
-| Output SVG image <br/>(color tolerance: **0**) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/fireball_tolerance_0.svg" width="256" height="256"/>           |
-| Output SVG image <br/>(color tolerance: **0**) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/fireball_tolerance_64.svg" width="256" height="256"/>           |
-| Output SVG image <br/>(color tolerance: **0**) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/fireball_tolerance_124.svg" width="256" height="256"/>           |
-| Output SVG image <br/>(color tolerance: **0**) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/fireball_tolerance_256.svg" width="256" height="256"/>           |
-| Output SVG image <br/>(color tolerance: **0**) | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/fireball_tolerance_512.svg" width="256" height="256"/>           |
+### Example 4 - vectorize sprite with gradients and reduce number of colors  ([source](https://github.com/ValentinFrancois/pixels2svg/blob/main/examples/fireball.py))
+| File                                              | Preview                                                                                                                                    |
+|---------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| Original PNG image <br/>(150×150)                 | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/fireball.png" width="256" height="256"/>               |
+| Output SVG image <br/>(color tolerance: **0**)    | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/fireball_tolerance_0.svg" width="256" height="256"/>   |
+| Output SVG image <br/>(color tolerance: **64**)   | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/fireball_tolerance_64.svg" width="256" height="256"/>  |
+| Output SVG image <br/>(color tolerance: **128**)  | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/fireball_tolerance_128.svg" width="256" height="256"/> |
+| Output SVG image <br/>(color tolerance: **256**)  | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/fireball_tolerance_256.svg" width="256" height="256"/> |
+| Output SVG image <br/>(color tolerance: **512**)  | <img src="https://raw.githubusercontent.com/ValentinFrancois/pixels2svg/main/images/fireball_tolerance_512.svg" width="256" height="256"/> |
+
+---
+
+## Limitations
+
+The code isn't optimized and runtime is pretty much proportional to the 
+dimensions and the number of colors of the image that gets traced in SVG: 
+we indeed iterate over each isolated color blob to calculate its polygonal 
+contour. This is why reducing the number of colors might be useful.
+
+
+For instance, converting the 150×150 fireball sprite with transparency in 
+[example 4](https://github.com/ValentinFrancois/pixels2svg#example-4---vectorize-sprite-with-gradients-and-reduce-number-of-colors--source)
+took 60s on my laptop.
+<br/>Using `color_tolerance=64`, it took 4s. Using `color_tolerance=128`, it took 0.8s.
 
 ---
 
