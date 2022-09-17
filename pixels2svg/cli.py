@@ -28,14 +28,6 @@ def run_command():
         help='Output path of the bitmap image.\n If not  passed, will print '
              'the output in the terminal.')
     parser.add_argument(
-        '--no_group_by_color',
-        action='store_true',
-        help='Do not group shapes of same color together inside <g> tags.')
-    parser.add_argument(
-        '--no_pretty',
-        action='store_true',
-        help='Do not pretty-write the SVG code.')
-    parser.add_argument(
         '--color_tolerance', '-c',
         metavar='<int>',
         type=int,
@@ -67,6 +59,14 @@ def run_command():
              'you to control how progressive the background detection should '
              'be with blurred contours.\n'
              'Size is expressed in %% of total image pixels.')
+    parser.add_argument(
+        '--no_group_by_color',
+        action='store_true',
+        help='Do not group shapes of same color together inside <g> tags.')
+    parser.add_argument(
+        '--no_pretty',
+        action='store_true',
+        help='Do not pretty-write the SVG code.')
 
     args = parser.parse_args()
 
