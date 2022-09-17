@@ -1,4 +1,4 @@
 connected-components-3d
-numpy
 Pillow
 svgwrite
+scipy
