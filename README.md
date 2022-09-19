@@ -59,26 +59,26 @@ pip install git+git://github.com/ValentinFrancois/pixels2svg#egg=pixels2svg
 ## Usage
 ### CLI
 ```
-usage: __main__.py [-h] [--output <path>] [--color_tolerance <int>] [--remove_background]
-                   [--background_tolerance <float>] [--maximal_non_bg_artifact_size <float>]
-                   [--no_group_by_color] [--no_pretty]
-                   <path>
+python3 -m pixels2svg [-h] [--output <path>] [--color_tolerance <int>] [--remove_background]
+                      [--background_tolerance <float>] [--maximal_non_bg_artifact_size <float>]
+                      [--no_group_by_color] [--no_pretty]
+                      <input_path>
 
 pixels2svg CLI
 
 positional arguments:
-  <path>                Input path of the bitmap image.
+  <input_path>          Path to the input bitmap image (anything supported by PIL.Image).
 
 optional arguments:
-  -h, --help            show this help message and exit
+  -h, --help            Show this help message and exit
   --output <path>, -o <path>
-                        Output path of the bitmap image.
+                        Path to the output SVG image.
                         If not passed, will print the output in the terminal.
   --color_tolerance <int>, -c <int>
                         Color tolerance (1 = the smallest luminosity difference i.e. a difference of 1 on the
                         Blue channel).
   --remove_background, -b
-                        If image has a solid background, will try to remove it.
+                        If the input image has a solid background, will try to remove it.
   --background_tolerance <float>
                         (Only relevant when `remove_background = True`)
                         Arbitrary quantity of blur use to remove noise - just fine-tune the value if the

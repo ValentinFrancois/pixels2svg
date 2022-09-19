@@ -18,14 +18,15 @@ def run_command():
                                      formatter_class=SmartFormatter)
     parser.add_argument(
         'input',
-        metavar='<path>',
+        metavar='<input path>',
         type=str,
-        help='Input path of the bitmap image.')
+        help='Path to the input the bitmap image '
+             '(anything supported by PIL.Image).')
     parser.add_argument(
         '--output', '-o',
         metavar='<path>',
         type=str,
-        help='Output path of the bitmap image.\n If not  passed, will print '
+        help='Path to the output SVG image.\n If not  passed, will print '
              'the output in the terminal.')
     parser.add_argument(
         '--color_tolerance', '-c',
@@ -37,7 +38,8 @@ def run_command():
     parser.add_argument(
         '--remove_background', '-b',
         action='store_true',
-        help='If image has a solid background, will try to remove it.')
+        help='If the input image has a solid background, will try to remove '
+             'it.')
     parser.add_argument(
         '--background_tolerance',
         metavar='<float>',
