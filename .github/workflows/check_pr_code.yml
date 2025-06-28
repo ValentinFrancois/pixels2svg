@@ -14,7 +14,7 @@ jobs:
       n_commits: ${{ steps.count_commits.outputs.n_commits }}
     steps:
       - name: checkout current branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -23,7 +23,7 @@ jobs:
         run: |
           git fetch
           N_COMMITS=$(git rev-list origin/main.. --count)
-          echo "::set-output name=n_commits::${N_COMMITS}"
+          echo "n_commits=${N_COMMITS}" >> $GITHUB_OUTPUT
 
   add_empty_commit_if_only_one:
     needs: count_commits
@@ -33,7 +33,7 @@ jobs:
     steps:
 
       - name: checkout current branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}

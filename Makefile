@@ -13,7 +13,7 @@ lint:
 
 test:
 	PYTHON_VERSION=$$(python3 --version) && \
-	if echo "$${PYTHON_VERSION}" | grep -q "3.10"; \
+	if echo "$${PYTHON_VERSION}" | grep -E -q "3\.[0-9]{2,}"; \
 	then python3 -m pytest tests; \
 	else nosetests -v --with-coverage --cover-package=$(PROJECT) tests; \
 	fi
