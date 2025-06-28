@@ -15,23 +15,23 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
 
     name: Check Python${{ matrix.python-version }}
 
     steps:
     - name: checkout current commit
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       if: ${{ inputs.ref == 'default' }}
 
     - name: checkout main
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         ref: ${{ inputs.ref }}
       if: ${{ inputs.ref != 'default' }}
 
     - name: install python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -48,9 +48,9 @@ jobs:
       run: make test
 
     - name: codeql_init
-      uses: github/codeql-action/init@v1
+      uses: github/codeql-action/init@v3
       with:
         languages: 'python'
 
     - name: codeql_analyze
-      uses: github/codeql-action/analyze@v1
+      uses: github/codeql-action/analyze@v3
